@@ -1,6 +1,742 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Savia — Cocina de autor</title><link rel="stylesheet" href="../assets/examples.css"></head>
-<body class="savia"><nav class="s-nav"><a href="../index.html" class="back">← WEB+</a><b>SAVIA</b><div><a href="#menu">Carta</a><a href="#historia">Historia</a><a href="#reservas">Reservas</a></div></nav>
-<header class="s-hero"><div class="s-photo" style="background-image:url('https://images.unsplash.com/photo-1753104179161-92c1249ad41c?auto=format&fit=crop&fm=jpg&q=80&w=1800')"></div><div class="s-copy"><small>COCINA DE AUTOR · MADRID</small><h1>Sabores que<br><i>dejan huella.</i></h1><p>Una experiencia gastronómica contemporánea donde producto, fuego y temporada se encuentran.</p><a class="s-btn" href="#reservas">Reservar mesa</a></div></header>
-<section class="s-menu" id="menu"><p>MENÚ DE TEMPORADA</p><h2>Lo sencillo,<br>cuando está bien hecho.</h2><div class="s-dishes"><div><b>01</b><h3>Tomate · Albahaca · AOVE</h3><span>18 €</span></div><div><b>02</b><h3>Arroz de brasa · Setas</h3><span>24 €</span></div><div><b>03</b><h3>Pescado del día · Pilpil</h3><span>29 €</span></div></div></section>
-<section class="s-story" id="historia"><div class="s-story-photo" style="background-image:url('https://images.unsplash.com/photo-1753104179161-92c1249ad41c?auto=format&fit=crop&fm=jpg&q=80&w=1800')"></div><div><small>NUESTRA FILOSOFÍA</small><h2>Menos ruido.<br>Más sabor.</h2><p>Savia es un restaurante ficticio creado como demostración de diseño. Su web prioriza atmósfera, fotografía, carta y reservas.</p></div></section>
-<section class="s-reserve" id="reservas"><small>RESERVAS</small><h2>Tu mesa<br>te espera.</h2><a class="s-btn" href="mailto:hola@tudominio.com?subject=Reserva%20Savia">Solicitar reserva →</a></section><footer><a href="../index.html">← Volver a WEB+</a><span>Concepto de portfolio · Imágenes: Unsplash</span></footer><script src="../assets/example.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f3f0e8">
+<meta name="description" content="SAVIA. Seasonal cuisine, honest produce and an experience to enjoy without rushing.">
+<title>SAVIA — Seasonal cuisine</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --cream:#f3f0e8;
+  --paper:#e9e5da;
+  --ink:#242820;
+  --olive:#606b4a;
+  --olive-dark:#3e4833;
+  --muted:#77796e;
+  --line:rgba(36,40,32,.18);
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',Arial,sans-serif;
+  --max:1240px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:85px}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+body.menu-open{overflow:hidden}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+img{display:block;width:100%;object-fit:cover}
+::selection{background:var(--olive);color:white}
+.wrap{width:min(var(--max),calc(100% - 64px));margin:auto}
+.serif{font-family:var(--serif);font-weight:400}
+.eyebrow{display:flex;align-items:center;gap:12px;font-size:.66rem;text-transform:uppercase;letter-spacing:.2em;font-weight:600;color:var(--olive)}
+.eyebrow:before{content:"";width:27px;height:1px;background:currentColor}
+.section{padding:125px 0}
+.section-title{font-family:var(--serif);font-weight:400;font-size:clamp(3rem,6.7vw,6.5rem);line-height:.99;letter-spacing:-.045em;margin:22px 0}
+.section-title em{color:var(--olive);font-weight:400}
+.body-copy{font-size:.91rem;line-height:1.9;color:var(--muted)}
+.button{display:inline-flex;align-items:center;justify-content:center;gap:28px;padding:16px 21px;border:1px solid var(--olive);background:var(--olive);color:#fff;font-size:.68rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;transition:background .25s,color .25s,transform .25s}
+.button:hover{background:transparent;color:var(--olive);transform:translateY(-2px)}
+.button .arrow{font-size:1rem;transition:transform .25s}
+.button:hover .arrow{transform:translate(3px,-3px)}
+.button-dark{background:var(--ink);border-color:var(--ink)}
+.button-dark:hover{color:var(--ink)}
+.text-link{display:inline-flex;align-items:center;gap:14px;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em;border-bottom:1px solid var(--olive);padding-bottom:9px;transition:gap .25s}
+.text-link:hover{gap:22px}
+.text-link span{color:var(--olive)}
+
+/* NAV */
+.header{position:fixed;top:0;left:0;width:100%;z-index:100;transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+.header.scrolled{background:rgba(243,240,232,.94);backdrop-filter:blur(15px);border-color:var(--line)}
+.nav{height:84px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center}
+.brand{font-family:var(--serif);font-size:2rem;letter-spacing:.16em;line-height:1}
+.brand small{display:block;font-family:var(--sans);font-size:.48rem;letter-spacing:.38em;text-align:center;margin-top:5px}
+.nav-center{display:flex;gap:32px;align-items:center}
+.nav-center a{font-size:.68rem;letter-spacing:.08em;color:#46483e;transition:color .2s}
+.nav-center a:hover{color:var(--olive)}
+.nav-right{display:flex;justify-content:flex-end}
+.nav-right .button{padding:13px 17px}
+.menu-toggle{display:none;border:0;background:none;font-size:1.5rem;color:var(--ink);padding:8px}
+
+/* HERO */
+.hero{min-height:790px;min-height:100svh;position:relative;display:flex;align-items:center;overflow:hidden;background:#25291f;color:#fff}
+.hero-image{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=2200&q=90') center 55%/cover;transform:scale(1.04);animation:heroZoom 1.7s cubic-bezier(.2,.7,.2,1) forwards}
+.hero-image:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,24,18,.75) 0%,rgba(20,24,18,.45) 48%,rgba(20,24,18,.12) 100%),linear-gradient(0deg,rgba(20,24,18,.45),transparent 45%)}
+.hero-inner{position:relative;z-index:1;width:100%;padding-top:80px}
+.hero .eyebrow{color:#e0dfce}
+.hero h1{font-family:var(--serif);font-size:clamp(5rem,12.5vw,12rem);font-weight:400;line-height:.82;letter-spacing:-.065em;margin:34px 0 30px;max-width:1000px}
+.hero h1 em{font-weight:400;color:#d9ddc2}
+.hero-description{max-width:380px;color:rgba(255,255,255,.8);font-size:.9rem;line-height:1.85;margin-bottom:32px}
+.hero-actions{display:flex;align-items:center;gap:28px}
+.hero .button{background:var(--cream);color:var(--ink);border-color:var(--cream)}
+.hero .button:hover{background:transparent;color:white;border-color:white}
+.hero .text-link{border-color:rgba(255,255,255,.65);color:white}
+.hero .text-link span{color:#d9ddc2}
+.hero-bottom{position:absolute;bottom:30px;left:0;right:0;display:flex;justify-content:space-between;align-items:center;color:rgba(255,255,255,.7);font-size:.62rem;text-transform:uppercase;letter-spacing:.15em}
+.hero-location{display:flex;align-items:center;gap:10px}
+.hero-location:before{content:"";width:6px;height:6px;background:#d9ddc2;border-radius:50%}
+.hero-count{display:flex;align-items:center;gap:15px}
+.hero-count:before{content:"";height:1px;width:40px;background:rgba(255,255,255,.6)}
+
+/* TICKER */
+.ticker{overflow:hidden;background:var(--olive);color:#f8f6ef;padding:16px 0}
+.ticker-track{display:flex;width:max-content;animation:marquee 34s linear infinite}
+.ticker span{white-space:nowrap;font-family:var(--serif);font-size:1.35rem;font-style:italic;padding:0 25px}
+.ticker b{font-weight:400;color:#d9ddc2}
+
+/* INTRO */
+.intro-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:90px;align-items:start}
+.intro-aside{padding-top:12px}
+.intro-aside img{height:370px;margin-top:38px}
+.intro-aside-caption{display:flex;justify-content:space-between;gap:15px;margin-top:12px;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.intro-main h2{font-size:clamp(3.2rem,6vw,6.2rem);margin-top:0}
+.intro-main h2 em{font-style:italic;color:var(--olive)}
+.intro-main .body-copy{max-width:600px}
+.signature{font-family:var(--serif);font-style:italic;font-size:1.8rem;color:var(--olive);margin-top:28px}
+.intro-facts{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);margin-top:55px;padding-top:22px;gap:15px}
+.fact strong{font-family:var(--serif);font-size:2rem;font-weight:400}
+.fact small{display:block;color:var(--muted);font-size:.61rem;letter-spacing:.12em;text-transform:uppercase;margin-top:6px}
+
+/* PHILOSOPHY */
+.philosophy{background:var(--paper)}
+.philosophy-grid{display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center}
+.philosophy-image{position:relative}
+.philosophy-image img{height:650px}
+.image-label{position:absolute;bottom:20px;left:20px;background:var(--cream);padding:13px 16px;font-size:.62rem;text-transform:uppercase;letter-spacing:.12em}
+.philosophy-copy h2{font-size:clamp(3.5rem,6vw,6rem)}
+.philosophy-copy .body-copy{max-width:470px}
+.values{margin-top:35px;border-top:1px solid var(--line)}
+.value{display:grid;grid-template-columns:35px 1fr;gap:12px;padding:19px 0;border-bottom:1px solid var(--line)}
+.value-number{font-size:.65rem;color:var(--olive);padding-top:3px}
+.value h3{font-family:var(--serif);font-size:1.25rem;font-weight:400;margin:0 0 6px}
+.value p{font-size:.79rem;color:var(--muted);line-height:1.7;margin:0}
+
+/* MENU */
+.menu-section{background:var(--cream)}
+.menu-heading{text-align:center;max-width:700px;margin:0 auto 55px}
+.menu-heading .eyebrow{justify-content:center}
+.menu-heading .section-title{margin-bottom:20px}
+.menu-heading .body-copy{max-width:490px;margin:auto}
+.menu-tabs{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-bottom:45px}
+.menu-tab{border:1px solid var(--line);background:transparent;color:var(--muted);padding:12px 19px;font-size:.67rem;letter-spacing:.1em;text-transform:uppercase;transition:all .2s}
+.menu-tab:hover,.menu-tab.active{background:var(--olive);color:#fff;border-color:var(--olive)}
+.dish-grid{display:grid;grid-template-columns:1fr 1fr;column-gap:65px;row-gap:0}
+.dish{display:grid;grid-template-columns:105px 1fr auto;gap:18px;align-items:center;padding:22px 0;border-bottom:1px solid var(--line);transition:opacity .25s,transform .25s}
+.dish.hidden{display:none}
+.dish img{width:105px;height:105px;object-fit:cover;transition:filter .3s}
+.dish:hover img{filter:saturate(1.12)}
+.dish h3{font-family:var(--serif);font-size:1.2rem;font-weight:400;margin:0 0 7px}
+.dish p{font-size:.73rem;color:var(--muted);line-height:1.6;margin:0}
+.dish-price{font-family:var(--serif);font-size:1.05rem;align-self:start;padding-top:4px;white-space:nowrap}
+.menu-footnote{text-align:center;margin-top:34px;color:var(--muted);font-size:.7rem;line-height:1.8}
+
+/* EXPERIENCE */
+.experience{background:var(--olive-dark);color:var(--cream);position:relative;overflow:hidden}
+.experience-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:80px;align-items:center}
+.experience-copy .eyebrow{color:#d9ddc2}
+.experience-copy h2{font-size:clamp(3.5rem,7vw,7rem)}
+.experience-copy h2 em{color:#d9ddc2}
+.experience-copy .body-copy{color:rgba(243,240,232,.72);max-width:430px}
+.experience-copy .button{background:var(--cream);color:var(--ink);border-color:var(--cream);margin-top:18px}
+.experience-copy .button:hover{background:transparent;color:var(--cream)}
+.experience-images{display:grid;grid-template-columns:1fr 1fr;gap:15px;align-items:start}
+.experience-images img:first-child{height:430px;margin-top:70px}
+.experience-images img:last-child{height:340px}
+.experience-caption{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(243,240,232,.7);margin-top:14px}
+
+/* GALLERY */
+.gallery-top{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:42px}
+.gallery-top .section-title{margin-bottom:0}
+.gallery-grid{display:grid;grid-template-columns:1.2fr .8fr 1fr;grid-template-rows:250px 250px;gap:14px}
+.gallery-item{position:relative;overflow:hidden;background:var(--paper)}
+.gallery-item:first-child{grid-row:span 2}
+.gallery-item:nth-child(4){grid-column:2 / 4}
+.gallery-item img{height:100%;transition:transform .8s cubic-bezier(.2,.7,.2,1),filter .5s}
+.gallery-item:hover img{transform:scale(1.05);filter:brightness(.82)}
+.gallery-item:after{content:"";position:absolute;inset:0;border:1px solid rgba(255,255,255,.15);pointer-events:none}
+
+/* RESERVATION */
+.reservation{background:var(--paper)}
+.reservation-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:90px;align-items:start}
+.reservation-copy h2{font-size:clamp(3.5rem,7vw,6.8rem)}
+.reservation-copy .body-copy{max-width:370px}
+.reservation-details{margin-top:35px;border-top:1px solid var(--line)}
+.detail{display:flex;justify-content:space-between;gap:20px;padding:16px 0;border-bottom:1px solid var(--line);font-size:.76rem}
+.detail span:first-child{color:var(--muted)}
+.reservation-form{padding:35px;background:var(--cream);border:1px solid var(--line)}
+.form-heading{font-family:var(--serif);font-size:1.7rem;font-weight:400;margin:0 0 25px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field{display:flex;flex-direction:column;gap:9px;margin-bottom:18px}
+.field label{font-size:.67rem;text-transform:uppercase;letter-spacing:.08em;color:#56594e}
+.field input,.field select,.field textarea{width:100%;background:transparent;border:1px solid var(--line);padding:14px 12px;color:var(--ink);outline:none;border-radius:0;transition:border-color .2s}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--olive)}
+.field textarea{resize:vertical;min-height:95px}
+.field select{appearance:auto}
+.reservation-form .button{width:100%}
+.form-note,.form-message{font-size:.7rem;line-height:1.7;color:var(--muted);margin:13px 0 0}
+.form-message{display:none;color:var(--olive-dark)}
+.form-message.show{display:block}
+
+/* FOOTER */
+.footer{background:var(--ink);color:var(--cream);padding:65px 0 25px}
+.footer-top{display:grid;grid-template-columns:1.4fr .8fr .8fr;gap:60px;padding-bottom:55px}
+.footer-brand{font-family:var(--serif);font-size:2.6rem;letter-spacing:.15em}
+.footer-intro{font-size:.78rem;line-height:1.8;color:rgba(243,240,232,.6);max-width:290px;margin-top:18px}
+.footer-col h3{font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:#d9ddc2;font-weight:600;margin:8px 0 20px}
+.footer-col a,.footer-col p{display:block;font-size:.76rem;color:rgba(243,240,232,.68);line-height:1.9;margin:0 0 7px;transition:color .2s}
+.footer-col a:hover{color:#d9ddc2}
+.footer-bottom{border-top:1px solid rgba(243,240,232,.16);padding-top:20px;display:flex;justify-content:space-between;gap:20px;font-size:.64rem;color:rgba(243,240,232,.5)}
+.footer-bottom a:hover{color:#fff}
+
+/* ENTRANCES */
+.reveal{opacity:0;transform:translateY(25px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.delay-1{transition-delay:.12s}
+.delay-2{transition-delay:.24s}
+@keyframes heroZoom{to{transform:scale(1)}}
+@keyframes marquee{to{transform:translateX(-50%)}}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .reveal{opacity:1;transform:none}
+}
+
+/* TABLET */
+@media(max-width:900px){
+  .wrap{width:calc(100% - 42px)}
+  .section{padding:90px 0}
+  .nav{grid-template-columns:1fr auto}
+  .nav-center{gap:18px}
+  .nav-right{display:none}
+  .intro-grid{gap:45px}
+  .philosophy-grid,.experience-grid{gap:45px}
+  .philosophy-image img{height:540px}
+  .dish-grid{column-gap:28px}
+  .dish{grid-template-columns:80px 1fr auto;gap:12px}
+  .dish img{width:80px;height:90px}
+  .dish h3{font-size:1.05rem}
+  .gallery-grid{grid-template-rows:210px 210px}
+  .reservation-grid{gap:45px}
+  .reservation-form{padding:25px}
+}
+
+/* MOBILE */
+@media(max-width:650px){
+  .wrap{width:calc(100% - 36px)}
+  .section{padding:75px 0}
+  .nav{height:72px;grid-template-columns:1fr auto}
+  .brand{font-size:1.7rem}
+  .brand small{font-size:.42rem}
+  .menu-toggle{display:block;z-index:2}
+  .nav-center{
+    position:fixed;inset:0;background:var(--cream);z-index:1;
+    display:flex;flex-direction:column;justify-content:center;align-items:center;
+    gap:30px;opacity:0;visibility:hidden;transform:translateY(-10px);
+    transition:opacity .25s,visibility .25s,transform .25s
+  }
+  .nav-center.open{opacity:1;visibility:visible;transform:translateY(0)}
+  .nav-center a{font-family:var(--serif);font-size:2rem!important;color:var(--ink)}
+  .hero{min-height:780px;min-height:94svh}
+  .hero-image{background-position:58% center}
+  .hero-image:after{background:linear-gradient(90deg,rgba(20,24,18,.75),rgba(20,24,18,.25)),linear-gradient(0deg,rgba(20,24,18,.5),transparent 60%)}
+  .hero-inner{padding-top:50px}
+  .hero h1{font-size:clamp(4.8rem,19vw,7.5rem);margin:28px 0}
+  .hero-description{max-width:310px;font-size:.84rem}
+  .hero-actions{align-items:flex-start;flex-direction:column;gap:23px}
+  .hero-bottom{bottom:20px;align-items:flex-end;font-size:.54rem}
+  .hero-count:before{width:20px}
+  .ticker{padding:13px 0}
+  .ticker span{font-size:1.15rem;padding:0 16px}
+  .section-title{font-size:clamp(3rem,13vw,5rem)}
+  .intro-grid{grid-template-columns:1fr;gap:45px}
+  .intro-aside img{height:310px;max-width:370px}
+  .intro-main h2{font-size:clamp(3.1rem,13vw,5rem)}
+  .intro-facts{margin-top:35px}
+  .fact strong{font-size:1.65rem}
+  .fact small{font-size:.54rem;letter-spacing:.05em}
+  .philosophy-grid{grid-template-columns:1fr;gap:35px}
+  .philosophy-image img{height:420px}
+  .philosophy-copy h2{font-size:clamp(3.2rem,13vw,5rem)}
+  .menu-heading{margin-bottom:35px}
+  .menu-tabs{gap:6px;margin-bottom:28px}
+  .menu-tab{padding:10px 12px;font-size:.59rem}
+  .dish-grid{grid-template-columns:1fr}
+  .dish{grid-template-columns:85px 1fr auto;gap:14px;padding:16px 0}
+  .dish img{width:85px;height:88px}
+  .dish h3{font-size:1.1rem}
+  .dish p{font-size:.7rem}
+  .experience-grid{grid-template-columns:1fr;gap:35px}
+  .experience-copy h2{font-size:clamp(3.5rem,14vw,5.5rem)}
+  .experience-images img:first-child{height:320px;margin-top:35px}
+  .experience-images img:last-child{height:260px}
+  .gallery-top{display:block}
+  .gallery-top .text-link{margin-top:20px}
+  .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:220px 170px 190px;gap:9px}
+  .gallery-item:first-child{grid-row:span 2}
+  .gallery-item:nth-child(4){grid-column:1 / 3}
+  .reservation-grid{grid-template-columns:1fr;gap:35px}
+  .reservation-copy h2{font-size:clamp(3.5rem,14vw,5.5rem)}
+  .reservation-form{padding:23px 17px}
+  .form-row{grid-template-columns:1fr;gap:0}
+  .footer{padding-top:45px}
+  .footer-top{grid-template-columns:1fr 1fr;gap:32px 20px;padding-bottom:35px}
+  .footer-main{grid-column:1 / -1}
+  .footer-brand{font-size:2.2rem}
+  .footer-bottom{flex-direction:column;gap:9px}
+}
+</style>
+</head>
+
+<body>
+
+<header class="header" id="header">
+  <div class="wrap nav">
+    <a class="brand" href="#inicio" aria-label="SAVIA, home">
+      SAVIA
+      <small>SEASONAL CUISINE</small>
+    </a>
+
+    <nav class="nav-center" id="navMenu" aria-label="Main navigation">
+      <a href="#filosofia">Our essence</a>
+      <a href="#carta">The menu</a>
+      <a href="#experiencia">The space</a>
+      <a href="#contacto">Contact</a>
+    </nav>
+
+    <div class="nav-right">
+      <a class="button" href="#reservas">Book a table <span class="arrow">↗</span></a>
+    </div>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">☰</button>
+  </div>
+</header>
+
+<main>
+
+<section class="hero" id="inicio">
+  <div class="hero-image" aria-hidden="true"></div>
+  <div class="wrap hero-inner">
+    <div class="eyebrow">Local produce · Honest cooking</div>
+    <h1>The taste<br>of the <em>essential.</em></h1>
+    <p class="hero-description">A kitchen that follows the rhythm of nature. Seasonal ingredients, slow fire and the pleasure of sharing around a table.</p>
+    <div class="hero-actions">
+      <a class="button" href="#carta">Discover the menu <span class="arrow">↗</span></a>
+      <a class="text-link" href="#filosofia">Our way of doing things <span>↗</span></a>
+    </div>
+  </div>
+  <div class="wrap hero-bottom">
+    <span class="hero-location">Barcelona · Spain</span>
+    <span class="hero-count">Cooking with origin</span>
+  </div>
+</section>
+
+<div class="ticker" aria-label="Seasonal cuisine, local produce, time to enjoy">
+  <div class="ticker-track">
+    <span>From the land to the table</span><b>✳</b>
+    <span>Seasonal produce</span><b>✳</b>
+    <span>Time to enjoy</span><b>✳</b>
+    <span>From the land to the table</span><b>✳</b>
+    <span>Seasonal produce</span><b>✳</b>
+    <span>Time to enjoy</span><b>✳</b>
+  </div>
+</div>
+
+<section class="section">
+  <div class="wrap intro-grid">
+    <div class="intro-aside reveal">
+      <div class="eyebrow">One table, many stories</div>
+      <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=85" alt="Fresh seasonal vegetables at a market" loading="lazy">
+      <div class="intro-aside-caption"><span>Conscious origin</span><span>01 / 04</span></div>
+    </div>
+
+    <div class="intro-main reveal delay-1">
+      <h2 class="section-title">Cook well.<br><em>Live slowly.</em></h2>
+      <p class="body-copy">We believe in the flavour of simple things when they are done with care. In produce that arrives in its moment, in small producers and in a kitchen that respects what the land offers us.</p>
+      <p class="body-copy">SAVIA was born from an idea: that every visit is a pause, a conversation and a memory worth repeating.</p>
+      <div class="signature">With calm, with origin.</div>
+
+      <div class="intro-facts">
+        <div class="fact"><strong>Km 0</strong><small>Whenever possible</small></div>
+        <div class="fact"><strong>Season</strong><small>A living menu</small></div>
+        <div class="fact"><strong>No rush</strong><small>The pleasure of the table</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section philosophy" id="filosofia">
+  <div class="wrap philosophy-grid">
+    <div class="philosophy-image reveal">
+      <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=85" alt="Warm restaurant interior with wooden tables" loading="lazy">
+      <div class="image-label">The value of simplicity</div>
+    </div>
+
+    <div class="philosophy-copy reveal delay-1">
+      <div class="eyebrow">Our philosophy</div>
+      <h2 class="section-title">Less artifice.<br><em>More truth.</em></h2>
+      <p class="body-copy">Every ingredient has something to say. Our job is to listen to it, respect its essence and accompany it without hiding what makes it special.</p>
+
+      <div class="values">
+        <div class="value">
+          <span class="value-number">01</span>
+          <div><h3>Origin that matters</h3><p>We prioritise nearby producers and raw materials selected with judgement.</p></div>
+        </div>
+        <div class="value">
+          <span class="value-number">02</span>
+          <div><h3>A living kitchen</h3><p>The menu changes with the seasons and with the best we find at the market.</p></div>
+        </div>
+        <div class="value">
+          <span class="value-number">03</span>
+          <div><h3>Sincere hospitality</h3><p>We want you to feel at ease, to be looked after and to come back for pleasure.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section menu-section" id="carta">
+  <div class="wrap">
+    <div class="menu-heading reveal">
+      <div class="eyebrow">Our proposal</div>
+      <h2 class="section-title">A menu with<br><em>its feet on the ground.</em></h2>
+      <p class="body-copy">Dishes designed for sharing, recognisable flavours and small twists that surprise without losing their essence.</p>
+    </div>
+
+    <div class="menu-tabs reveal" role="group" aria-label="Filter dishes">
+      <button class="menu-tab active" data-filter="todos" aria-pressed="true">Full menu</button>
+      <button class="menu-tab" data-filter="entrantes" aria-pressed="false">Starters</button>
+      <button class="menu-tab" data-filter="principales" aria-pressed="false">Mains</button>
+      <button class="menu-tab" data-filter="postres" aria-pressed="false">Desserts</button>
+    </div>
+
+    <div class="dish-grid" id="dishGrid">
+      <article class="dish reveal" data-category="entrantes">
+        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=300&q=80" alt="Fresh seasonal salad with vegetables" loading="lazy">
+        <div><h3>Seasonal garden</h3><p>Fresh vegetables, aromatic herbs and house vinaigrette.</p></div>
+        <span class="dish-price">€14</span>
+      </article>
+
+      <article class="dish reveal" data-category="entrantes">
+        <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=300&q=80" alt="Vegetable bowl with fresh ingredients" loading="lazy">
+        <div><h3>Green, green</h3><p>Tender leaves, seasonal fruit and toasted seeds.</p></div>
+        <span class="dish-price">€13</span>
+      </article>
+
+      <article class="dish reveal" data-category="entrantes">
+        <img src="https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&w=300&q=80" alt="Creamy rice prepared to order" loading="lazy">
+        <div><h3>Creamy rice</h3><p>House broth, mushrooms and a touch of fresh herbs.</p></div>
+        <span class="dish-price">€17</span>
+      </article>
+
+      <article class="dish reveal" data-category="principales">
+        <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=300&q=80" alt="Seasonal vegetable dish" loading="lazy">
+        <div><h3>The garden on fire</h3><p>Roasted vegetables, smooth cream and herb oil.</p></div>
+        <span class="dish-price">€19</span>
+      </article>
+
+      <article class="dish reveal" data-category="principales">
+        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=300&q=80" alt="Elaborate main course" loading="lazy">
+        <div><h3>Slow fire</h3><p>Seasonal stew with reduced jus and the garnish of the day.</p></div>
+        <span class="dish-price">€24</span>
+      </article>
+
+      <article class="dish reveal" data-category="principales">
+        <img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?auto=format&fit=crop&w=300&q=80" alt="Market cuisine dish" loading="lazy">
+        <div><h3>Market of the day</h3><p>Produce selected according to what arrives at the market.</p></div>
+        <span class="dish-price">M/P</span>
+      </article>
+
+      <article class="dish reveal" data-category="postres">
+        <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=300&q=80" alt="Fresh fruit dessert" loading="lazy">
+        <div><h3>Fruit and cream</h3><p>Seasonal fruit, light cream and artisan crunch.</p></div>
+        <span class="dish-price">€8</span>
+      </article>
+
+      <article class="dish reveal" data-category="postres">
+        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=300&q=80" alt="Chocolate cake" loading="lazy">
+        <div><h3>Intense chocolate</h3><p>Dark chocolate, creamy texture and a delicate touch of salt.</p></div>
+        <span class="dish-price">€9</span>
+      </article>
+    </div>
+
+    <p class="menu-footnote">Concept menu with indicative prices. Dish availability depends on the season.<br>Ask the team about allergens and dietary options.</p>
+  </div>
+</section>
+
+<section class="section experience" id="experiencia">
+  <div class="wrap experience-grid">
+    <div class="experience-copy reveal">
+      <div class="eyebrow">The SAVIA space</div>
+      <h2 class="section-title">Stay a<br>little <em>longer.</em></h2>
+      <p class="body-copy">Warm light, natural materials and an atmosphere that invites you to slow down. A place for an impromptu meal, a special celebration or a lingering after-dinner conversation.</p>
+      <a class="button" href="#reservas">Come and meet us <span class="arrow">↗</span></a>
+    </div>
+
+    <div>
+      <div class="experience-images reveal delay-1">
+        <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=700&q=85" alt="Modern restaurant table setting" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=700&q=85" alt="Cosy dining area with natural light" loading="lazy">
+      </div>
+      <p class="experience-caption">Natural light · Honest materials · Shared time</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="gallery-top reveal">
+      <div>
+        <div class="eyebrow">Details that tell a story</div>
+        <h2 class="section-title">A look<br><em>at SAVIA.</em></h2>
+      </div>
+      <a href="#reservas" class="text-link">Live the experience <span>↗</span></a>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-item reveal"><img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=85" alt="Fresh produce at the market" loading="lazy"></div>
+      <div class="gallery-item reveal delay-1"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=700&q=85" alt="Warm restaurant interior" loading="lazy"></div>
+      <div class="gallery-item reveal delay-2"><img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=700&q=85" alt="Table setting detail" loading="lazy"></div>
+      <div class="gallery-item reveal"><img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1200&q=85" alt="Dining atmosphere" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section reservation" id="reservas">
+  <div class="wrap reservation-grid">
+    <div class="reservation-copy reveal">
+      <div class="eyebrow">Your table awaits</div>
+      <h2 class="section-title">Let's make<br>some <em>room.</em></h2>
+      <p class="body-copy">Tell us when you'd like to come. We'll get in touch to confirm the details of your reservation.</p>
+
+      <div class="reservation-details">
+        <div class="detail"><span>Location</span><span>Barcelona, Spain</span></div>
+        <div class="detail"><span>Opening hours</span><span>Tue — Sun</span></div>
+        <div class="detail"><span>Email</span><span>hello@savia.example</span></div>
+      </div>
+    </div>
+
+    <form class="reservation-form reveal delay-1" id="reservationForm">
+      <h3 class="form-heading">Request your reservation</h3>
+
+      <div class="form-row">
+        <div class="field">
+          <label for="guestName">Name</label>
+          <input id="guestName" name="name" autocomplete="name" placeholder="Your name" required>
+        </div>
+        <div class="field">
+          <label for="guestEmail">Email</label>
+          <input id="guestEmail" name="email" type="email" autocomplete="email" placeholder="you@email.com" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label for="date">Desired date</label>
+          <input id="date" name="date" type="date" required>
+        </div>
+        <div class="field">
+          <label for="time">Approximate time</label>
+          <select id="time" name="time" required>
+            <option value="" disabled selected>Choose a time</option>
+            <option>13:00</option>
+            <option>13:30</option>
+            <option>14:00</option>
+            <option>14:30</option>
+            <option>20:00</option>
+            <option>20:30</option>
+            <option>21:00</option>
+            <option>21:30</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label for="people">Number of people</label>
+          <select id="people" name="people" required>
+            <option value="1">1 person</option>
+            <option value="2" selected>2 people</option>
+            <option value="3">3 people</option>
+            <option value="4">4 people</option>
+            <option value="5">5 people</option>
+            <option value="6">6 people</option>
+            <option value="7+">7 or more people</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="occasion">Occasion (optional)</label>
+          <select id="occasion" name="occasion">
+            <option value="None">A special meal</option>
+            <option>Birthday</option>
+            <option>Anniversary</option>
+            <option>Work meeting</option>
+            <option>Other occasion</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="notes">Additional notes</label>
+        <textarea id="notes" name="notes" placeholder="Allergies, preferences or any other detail..."></textarea>
+      </div>
+
+      <button class="button button-dark" type="submit">Request reservation <span class="arrow">↗</span></button>
+      <p class="form-note">The request does not automatically confirm a table. We'll contact you to check availability.</p>
+      <p class="form-message" id="formMessage" role="status"></p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-main">
+        <div class="footer-brand">SAVIA</div>
+        <p class="footer-intro">Seasonal cuisine, honest produce and time to enjoy. A table where there's always room for one more story.</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Explore</h3>
+        <a href="#filosofia">Our essence</a>
+        <a href="#carta">The menu</a>
+        <a href="#experiencia">The space</a>
+        <a href="#reservas">Reservations</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Find us</h3>
+        <p>Barcelona, Spain</p>
+        <p>Tue — Sun</p>
+        <a href="#reservas">hello@savia.example</a>
+        <a href="#inicio">Instagram ↗</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> SAVIA. Design concept.</span>
+      <span>Made with calm and care.</span>
+      <a href="#inicio">Back to top ↑</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const header = document.getElementById('header');
+  const menuToggle = document.getElementById('menuToggle');
+  const navMenu = document.getElementById('navMenu');
+
+  // Translucent header on scroll
+  const updateHeader = () => {
+    header.classList.toggle('scrolled', window.scrollY > 24);
+  };
+  updateHeader();
+  window.addEventListener('scroll', updateHeader, { passive: true });
+
+  // Mobile navigation
+  const closeMenu = () => {
+    navMenu.classList.remove('open');
+    document.body.classList.remove('menu-open');
+    menuToggle.textContent = '☰';
+    menuToggle.setAttribute('aria-expanded', 'false');
+    menuToggle.setAttribute('aria-label', 'Open menu');
+  };
+
+  menuToggle.addEventListener('click', () => {
+    const open = !navMenu.classList.contains('open');
+    navMenu.classList.toggle('open', open);
+    document.body.classList.toggle('menu-open', open);
+    menuToggle.textContent = open ? '×' : '☰';
+    menuToggle.setAttribute('aria-expanded', String(open));
+    menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+
+  navMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 650) closeMenu();
+  });
+
+  // Progressive reveal of sections
+  const revealElements = document.querySelectorAll('.reveal');
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+
+    revealElements.forEach(element => observer.observe(element));
+  } else {
+    revealElements.forEach(element => element.classList.add('visible'));
+  }
+
+  // Functional menu filters
+  const tabs = document.querySelectorAll('.menu-tab');
+  const dishes = document.querySelectorAll('.dish');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const filter = tab.dataset.filter;
+
+      tabs.forEach(other => {
+        const active = other === tab;
+        other.classList.toggle('active', active);
+        other.setAttribute('aria-pressed', String(active));
+      });
+
+      dishes.forEach(dish => {
+        const visible = filter === 'todos' || dish.dataset.category === filter;
+        dish.classList.toggle('hidden', !visible);
+      });
+    });
+  });
+
+  // Prevent past reservation dates
+  const dateInput = document.getElementById('date');
+  const today = new Date();
+  const localToday = [
+    today.getFullYear(),
+    String(today.getMonth() + 1).padStart(2, '0'),
+    String(today.getDate()).padStart(2, '0')
+  ].join('-');
+  dateInput.min = localToday;
+
+  // Demo form: does not send data to a restaurant
+  const form = document.getElementById('reservationForm');
+  const message = document.getElementById('formMessage');
+
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+
+    if (!form.reportValidity()) return;
+
+    const data = new FormData(form);
+    const name = data.get('name');
+
+    message.textContent =
+      `Thank you, ${name}. The request has been validated in this demo, but it has not been sent to the restaurant. Connect the form to a real service to receive reservations.`;
+
+    message.classList.add('show');
+  });
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+})();
+</script>
+
+</body>
+</html>
